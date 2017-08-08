@@ -556,26 +556,29 @@ Now, webpack will compile a js file for the browser to use from our main file an
 **1.** Install Babel packages `npm install babel-core babel-loader babel-preset-es2015 --save-dev`
 
 **2.** Edit *webpack.config.js* so the whole thing reads as follows. Webpack will run the code through Babel before creating the dist version of App.js.
-```
+```js
 module.exports = {
-	entry: “./app/assets/scripts/App.js”,
-	output: {
-		path: “./app/temp/scripts”,
-		filename: “App.js”
-		},
-		modules: {
-			loaders: [
-				{
-					loader: ‘babel’,
-					query: {
-						presets: [‘es2015’]
-					},
-					test: /\.js$/,
-					exclude: /node_modules/
-					}
-				]
-			}
-}
+    entry: __dirname + "/app/assets/scripts/App.js",
+    output: {
+        path: __dirname + "/app/temp/scripts",
+        filename: "App.js"
+    },
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: [/node_modules/],
+                use: [{
+                    loader: 'babel-loader',
+                    options: { presets: ['es2015'] },
+                }],
+            },
+
+            // Loaders for other file types can go here
+        ],
+    },
+    // …
+};
 ```
 ### ECMA6 refactor - imports / exports
 

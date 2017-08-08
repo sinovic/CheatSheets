@@ -81,7 +81,7 @@ To confirm that you have npm installed you can run this command in your terminal
 
 **5.** Create *gulpfile.js* in project root `touch gulpfile.js `. Add placeholder tasks to the file:
 
-```
+```js
 var gulp = require(‘gulp’);
 
 	gulp.task('default', function() {
@@ -100,7 +100,7 @@ var gulp = require(‘gulp’);
 **6.** Install the gulp-watch package `npm install gulp-watch --save-dev`
 
 add to *gulpfile.js*:
-```
+```js
 watch = require('gulp-watch’);
 
 gulp.task('watch', function() {
@@ -122,7 +122,7 @@ npm install postcss-import --save-dev
 ```
 
 add to *gulpfile.js*:
-```
+```js
 postcss = require('gulp-postcss’),
 autoprefixer = require(‘autoprefixer’),
 cssvars = require('postcss-simple-vars’),
@@ -138,7 +138,7 @@ gulp.task('styles', function() {
 ```
 **8.** Adding stylesheet to *app/index.html*:
 
-```
+```html
 <link rel="stylesheet" href="temp/styles/styles.css">
 ```
 
@@ -161,7 +161,7 @@ gulp.task('styles', function() {
 
 **9.** Import css modules in *styles.css* 
 
-```
+```js
 @import “base/_global.css”;
 @import “modules/_footer.css”;
 
@@ -175,13 +175,13 @@ Update gulp to auto-refresh the web browser whenever we change html/css. Also vi
 **2.** BrowserSync package `npm install browser-sync --save-dev`
 
 **3.** Update *gulpfile.js* 
-```
+```js
 var watch = require('gulp-watch'),
 browserSync = require('browser-sync').create();
 ```
 
 Updating the watch task:
-```
+```js
 gulp.task('watch', function() {
 
   browserSync.init({
@@ -201,7 +201,7 @@ gulp.task('watch', function() {
 ```
 Adding cssinject task to *gulpfile.js*:
 
-```
+```js
 gulp.task('cssInject', ['styles'], function() {
   return gulp.src('app/temp/styles/**/*.css')
     .pipe(browserSync.stream());
@@ -214,7 +214,7 @@ gulp.task('cssInject', ['styles'], function() {
 **5.** Maintainable gulpfile by putting tasks into *gulp/tasks* as separate files e.g. *watch.js*, *styles.js*
 Edited *gulpfile.js* :
 
-```
+```js
 require('./gulp/tasks/styles');
 require('./gulp/tasks/watch');
 ```
@@ -223,7 +223,7 @@ require('./gulp/tasks/watch');
 
 Edit *gulp/tasks/styles.js* :
 
-```
+```js
 gulp.task('styles', function() {
   return gulp.src('./app/assets/styles/styles.css')
     .pipe(postcss([cssImport, cssvars, nested, autoprefixer]))
@@ -251,7 +251,7 @@ and update pipe in same file:
 `.pipe(postcss([cssImport, mixins, cssvars, nested, autoprefixer]))`
 
 **2.** Create reusable mixin blocks in file *app/assets/styles/base/_mixins.css*
-```
+```css
 @define-mixin atSmall {
   @media (min-width: 530px) {
     @mixin-content;
@@ -275,7 +275,7 @@ Import this file in *styles.css* `@import “base/_mixins.css”;`
 
 **3.** We can now use `@mixin [mixinName]` in stylesheets. Nest in selectors as follows:
 
-```
+```css
 .row{
 
 
@@ -302,7 +302,7 @@ We use responsive images for two reasons:
 
 **1. "Art direction"**
 Use the `<picture>` tag with media attribute:
-```
+```html
 <picture>
 	<source srcset=“images/dog-crop-large.jpg” media=“(min-width: 1200px)”>
 	<source srcset=“images/dog-crop-medium.jpg” media=“(min-width: 760px)”>
@@ -318,7 +318,7 @@ Use the `<picture>` tag with media attribute:
 
 **2. Image resolution / file size**
 Use `srcset`. The number after each image denotes the width of the image The browser/device uses this to determine which is the most appropriate to download, and doesn’t download the alternatives.
-```
+```html
 <img srcset=“images/dog-res-small.jpg 570w, images/dog-res-medium.jpg 1200w, images/dog-res-large.jpg 1920w” alt=“Puppy in the sand”>
 ```
 <p align="center">
@@ -335,7 +335,7 @@ Configure Gulp to automatically create an Icon Sprite. Make our site load faster
 **1.** Install svg-sprite package `npm install gulp-svg-sprite@1.3.1 --save-dev`
 
 **2.** In gulp/tasks create *sprites.js*
-```
+```js
 var gulp = require('gulp');
 svgSprite = require('gulp-svg-sprite');
 
@@ -378,7 +378,7 @@ Edit *sprites.js*
 
 `rename = require('gulp-rename');`
 
-```
+```js
 gulp.task('copySpriteCSS', ['createSprite'], function(){
   return gulp.src('./app/temp/sprite/css/*.css')
     .pipe(rename('_sprite.css'))
@@ -392,7 +392,7 @@ Add to *app/assets/styles/styles.css* `@import "modules/_sprite";`
 
 **6.** Move svg files from temp folder to assets folder by Editing sprites.js
 
-```
+```js
 var config = {
   mode: {
     css: {
@@ -415,7 +415,7 @@ gulp.task('icons', ['createSprite','copySpriteGraphic', 'copySpriteCSS']);
 ```
 
 Edit *sprite.css* to remove repetitive icon urls
-```
+```css
 .icon{
   background-image: url('/assets/images/sprite/{{{sprite}}}');
 }
@@ -441,7 +441,7 @@ Use sprite icons in *index.html* `<span class="icon icon--star"></span>`
 Install del package `npm install del --save-dev`
 
 Updating *gulpfile.js* by creating beginClean task and adding it to `icons` task.
-```
+```js
 del = require('del');
 gulp.task('beginClean', function(){
   return del(['./app/temp/sprite', './app/assets/images/sprites']);
@@ -450,14 +450,14 @@ gulp.task('beginClean', function(){
 
 End the clean task to delete temp sprite folder
 
-```
+```js
 gulp.task('endClean', ['copySpriteGraphic', 'copySpriteCSS'], function(){
     return del('./app/temp/sprite');
 });
 ```
 ## Object-oriented Javascript and Webpack
 Blueprint in JavaScript (classes in other OOP languages). ECMA5 way of creating "classes". Later, after installing Babel, we can use the ECMA6 class constructor 
-```
+```js
 function Person(fullName, profession) {
 this.name = fullName;
 this.profession = profession;
@@ -481,7 +481,7 @@ Webpack will compile all the js modules into a single file that the browser can 
 **2.** Install webpack globally `npm install webpack -g`
 
 **3.** Create *webpack.config.js* in the project root folder
-```
+```js
 module.exports = {
 		 entry: __dirname + "/app/assets/scripts/App.js",
 		 output: {
@@ -516,7 +516,7 @@ Browsersync will automatically update if a .js file is edited:
 **3.** Edit *gulpfile.js* by adding `require(‘./gulp/tasks/scripts’);`
 
 **4.** Add the following to *gulp/tasks/scripts.js*
-```
+```js
 var gulp = require(‘gulp’),
 webpack = require(‘webpack’);
 
@@ -533,7 +533,7 @@ gulp.task(‘scripts’, function(callback) {
 ```
 
 **5.** In watch.js, after 'css' and 'watch' tasks, add:
-```
+```js
 watch(‘./app/assets/scripts/**/*.js), function() {
 	gulp.start(‘scriptsRefresh’);
 })
@@ -597,7 +597,7 @@ and in *Person.js* replace
 **2.** create *Vendor.js* in same dir as *App.js* and add line `import 'lazysizes';`
 
 **3.** In *webpack.config.js* edit 'entry' and 'export' properties to following:
-```
+```js
 module.exports = {
 	entry: {
 			App: “./app/assets/scripts/App.js”,
@@ -630,7 +630,7 @@ module.exports = {
 
 **6.** For background images, add 'lazyload' class to the html element. Then in the css assign the background image in a 'lazyloaded' class. This class will be added to the html element when the window scrolls close to the element. e.g.
 
-```
+```css
 .testimonials {
 	&.lazyloaded {
 		background: url(/assets/images/background.jpg) top 			center no-repeat;
@@ -655,7 +655,7 @@ Install del so we can delete old files when creating a new build
 
 **1.** Add following to *gulp/tasks/build.js*
 
-```
+```js
 var gulp = require('gulp'),
 imagemin = require('gulp-imagemin');
 
@@ -677,7 +677,7 @@ gulp.task('build', ['optimizeImages']);
 
 **3.** Add 'deleteDistFolder' task to *build.js* to clear out dist folder before each new build
 
-```
+```js
 var gulp = require('gulp'),
 imagemin = require('gulp-imagemin'),
 del = require('del'); //so we can delete the dist folder at start of each build
@@ -711,7 +711,7 @@ We want to
 **1.** `npm install gulp-usemin —save-dev`
 
 **2.** add to *build.js* so it looks like following:
-```
+```js
 var gulp = require('gulp'),
 imagemin = require('gulp-imagemin'),
 del = require('del'), //so we can delete the dist folder at start of each build
@@ -742,12 +742,12 @@ gulp.task('build', ['deleteDistFolder', 'optimizeImages', 'usemin']);
 ```
 
 **3.** So that the dist version of *index.html* points to the correct, dynamically-named versions of the CSS and JS files, wrap the references in comments as follows:
-```
+```html
 <!-- build:css assets/styles/styles.css -->
 <link rel="stylesheet" href="temp/styles/styles.css">
 <!-- endbuild -->
 ```
-```
+```html
 <!-- build:js assets/scripts/App.js -->
 <script src="assets/scripts/App.js"></script>
 <!-- endbuild -->
@@ -762,14 +762,14 @@ this will create index.html in dist folder with usemin comments removed, and cre
 (gulp-rev revisions files; gulp-cssnano compresses css; gulp-uglify compresses javascript)
 
 **2.** at top of *build.js* add:
-```
+```js
 rev = require('gulp-rev'),
 cssnano = require('gulp-cssnano'),
 uglify = require('gulp-uglify');
 ```
 
 **3.** Update 'usemin' task:
-```
+```js
 gulp.task('usemin', ['deleteDistFolder'], function() {
   return gulp.src("./app/index.html")
   .pipe(usemin({
@@ -783,7 +783,7 @@ NB If you're using ECMA6 syntax (e.g. arrow functions) in your JS and are not us
 
 **4.** Add a previewDist task to *build.js* that will let us preview our dist files using Browsersync:
 
-```
+```js
 var gulp = require('gulp'),
 imagemin = require('gulp-imagemin'),
 del = require('del'), //so we can delete the dist folder at start of each build
@@ -831,7 +831,7 @@ note that  styles was added as a dependency of usemin. if we had a scripts task,
 
 #### Copying other files to our dist folder with build
 **1.** Add the following to *build.js*:
-```
+```js
 gulp.task('copyGeneralFiles', ['deleteDistFolder'], function(){
   var pathsToCopy = [
     './app/**/*',
@@ -848,6 +848,6 @@ gulp.task('copyGeneralFiles', ['deleteDistFolder'], function(){
 });
 ```
 **2.** Update build task at end of same file:
-```
+```js
 gulp.task('build', ['deleteDistFolder', 'copyGeneralFiles', 'optimizeImages', 'usemin']);
 ```

@@ -123,7 +123,7 @@ npm install postcss-import --save-dev
 
 add to *gulpfile.js*:
 ```js
-postcss = require('gulp-postcss’),
+var postcss = require('gulp-postcss’),
 autoprefixer = require(‘autoprefixer’),
 cssvars = require('postcss-simple-vars’),
 nested = require('postcss-nested’),

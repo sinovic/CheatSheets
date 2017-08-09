@@ -101,7 +101,7 @@ var gulp = require(‘gulp’);
 
 add to *gulpfile.js*:
 ```js
-watch = require('gulp-watch’);
+var watch = require('gulp-watch’);
 
 gulp.task('watch', function() {
   watch('./app/index.html',

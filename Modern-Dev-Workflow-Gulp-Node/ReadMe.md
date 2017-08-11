@@ -624,11 +624,11 @@ module.exports = {
 
 **4.** in head of *index.html* add `<script src=“/temp/scripts/Vendor.js”></script>`
 
-**5.** To set an image to lazyload, add the class 'lazy-load' and change 'src'/'srcset' to 'data-src'/'data-srcset'. e.g.:
+**5.** To set an image to lazyload, add the class `lazy-load` and change `src or srcset` to `data-src' or 'data-srcset`. e.g.:
 
 `<img class=“lazyload” data-srcset=“image1.jpg 160w, image2.jpg 320w”>`
 
-**6.** For background images, add 'lazyload' class to the html element. Then in the css assign the background image in a 'lazyloaded' class. This class will be added to the html element when the window scrolls close to the element. e.g.
+**6.** For background images, add `lazyload` class to the html element. Then in the css assign the background image in a `lazyloaded` class. This class will be added to the html element when the window scrolls close to the element. e.g.
 
 ```css
 .testimonials {

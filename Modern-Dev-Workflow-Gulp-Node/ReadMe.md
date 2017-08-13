@@ -157,6 +157,66 @@ gulp.task('styles', function() {
 					_header.css
 					_footer.css
 
+
+Final:
+.
+├── Gulpfile.js
+├── app
+│   ├── assets
+│   │   ├── images
+│   │   │   ├── icons
+│   │   │   └── sprites
+│   │   ├── scripts
+│   │   │   ├── App.js
+│   │   │   ├── Vendor.js
+│   │   │   └── modules
+│   │   │       ├── MobileMenu.js
+│   │   │       ├── Modal.js
+│   │   │       ├── RevealOnScroll.js
+│   │   │       └── StickyHeader.js
+│   │   └── styles
+│   │       ├── base
+│   │       │   ├── _global.css
+│   │       │   ├── _mixins.css
+│   │       │   └── _variables.css
+│   │       ├── modules
+│   │       │   ├── _btn.css
+│   │       │   ├── _feature-item.css
+│   │       │   ├── _generic-content-container.css
+│   │       │   ├── _headline.css
+│   │       │   ├── _large-hero.css
+│   │       │   ├── _modal.css
+│   │       │   ├── _page-section.css
+│   │       │   ├── _primary-nav.css
+│   │       │   ├── _reveal-item.css
+│   │       │   ├── _row.css
+│   │       │   ├── _section-title.css
+│   │       │   ├── _site-footer.css
+│   │       │   ├── _site-header.css
+│   │       │   ├── _social-icons.css
+│   │       │   ├── _sprite.css
+│   │       │   ├── _testimonial.css
+│   │       │   └── _wrapper.css
+│   │       └── style.css
+│   ├── index.html
+│   └── temp
+│       ├── scripts
+│       │   ├── App.js
+│       │   ├── Vendor.js
+│       │   └── modernizr.js
+│       └── styles
+│           └── style.css
+├── gulp
+│   ├── tasks
+│   │   ├── modernizr.js
+│   │   ├── scripts.js
+│   │   ├── sprites.js
+│   │   ├── styles.js
+│   │   └── watch.js
+│   └── templates
+│       └── sprite.css
+└── webpack.config.js
+
 ````
 
 **9.** Import css modules in *styles.css* 

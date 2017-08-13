@@ -158,6 +158,7 @@ gulp.task('styles', function() {
 					_footer.css
 
 
+> tree -I "node_modules" -P "*.html|*.css|*.js"
 Final:
 .
 ├── Gulpfile.js
